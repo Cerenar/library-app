@@ -6,10 +6,6 @@ addBookButton.addEventListener('click', () => {
     addBookToLibrary();
 });
 
-// deleteBookButton.addEventListener('click', () => {
-//     deleteBook();
-// });
-
 function Book (title, author, pageCount, readStatus) {
     this.title = title;
     this.author = author;
@@ -53,6 +49,10 @@ function deleteBook (e) {
         if (book === bookNodeIndex) {
             container.removeChild(bookNodeToDelete);
         }
+    }
+    library.splice(bookNodeIndex, 1);
+    for (let i = bookNodeIndex; i < container.querySelectorAll('.book').length; i++) {
+        container.children[i].setAttribute('data-id', `${i}`);
     }
 }
 
