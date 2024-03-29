@@ -3,6 +3,11 @@ let book2 = new Book('c', 'd', 2, 'no');
 
 const library = [book1, book2];
 const container = document.querySelector('.container');
+const addButton = document.querySelector('button');
+
+addButton.addEventListener('click', () => {
+    addBookToLibrary();
+});
 
 function Book (title, author, pageCount, readStatus) {
     this.title = title;
@@ -18,9 +23,11 @@ function addBookToLibrary() {
     let readStatus = prompt('read');
     let newBook = new Book(title, author, pageCount, readStatus);
     library.push(newBook);
+    addBookToWebpage(library);
 }
 
 function addBookToWebpage(library) {
+    let lastChild = container.lastElementChild;
     for (let i = library.length-1; i >= 0; i--) {
         let newBook = document.querySelector(".container").appendChild(
             elt("div",
@@ -29,7 +36,7 @@ function addBookToWebpage(library) {
                 elt("p", `${library[i].pageCount}`),
                 elt("p", `${library[i].readStatus}`)));
         newBook.classList.add('book');
-        container.append(newBook);
+        container.insertBefore(newBook, lastChild);
         library.pop(library[i]);
     }
 }
