@@ -1,13 +1,14 @@
-let book1 = new Book('The Hobbit', 'J.R.R. Tolkien', 295, 'Have read');
-let book2 = new Book('c', 'd', 2, 'no');
-
-const library = [book1, book2];
+const library = [];
 const container = document.querySelector('.container');
-const addButton = document.querySelector('button');
+const addBookButton = document.querySelector('button');
 
-addButton.addEventListener('click', () => {
+addBookButton.addEventListener('click', () => {
     addBookToLibrary();
 });
+
+// deleteBookButton.addEventListener('click', () => {
+//     deleteBook();
+// });
 
 function Book (title, author, pageCount, readStatus) {
     this.title = title;
@@ -28,26 +29,37 @@ function addBookToLibrary() {
 
 function addBookToWebpage(library) {
     let lastChild = container.lastElementChild;
-    for (let i = library.length-1; i >= 0; i--) {
-        let newBook = document.querySelector(".container").appendChild(
-            elt("div",
-                elt("h2", `${library[i].title}`),
-                elt("p", `${library[i].author}`),
-                elt("p", `${library[i].pageCount}`),
-                elt("p", `${library[i].readStatus}`)));
+    for (let i = library.length-1; i <= library.length-1; i++) {
+        let newBook = document.querySelector('.container').appendChild(
+            elt('div',
+                elt('h2', `${library[i].title}`),
+                elt('p', `${library[i].author}`),
+                elt('p', `${library[i].pageCount}`),
+                elt('p', `${library[i].readStatus}`),
+                elt('button', 'Delete me')));
         newBook.classList.add('book');
+        newBook.setAttribute('data-id', `${i}`);
+        newBook.lastChild.addEventListener('click', (e) => {
+            deleteBook(e);
+        })
         container.insertBefore(newBook, lastChild);
-        library.pop(library[i]);
     }
 }
 
-addBookToWebpage(library);
-
+function deleteBook (e) {
+    let bookNodeIndex = e.target.parentElement.getAttribute('data-id');
+    let bookNodeToDelete = container.querySelectorAll('.book')[bookNodeIndex];
+    for(let book in library) {
+        if (book === bookNodeIndex) {
+            container.removeChild(bookNodeToDelete);
+        }
+    }
+}
 
 function elt(type, ...children) {
   let node = document.createElement(type);
   for (let child of children) {
-    if (typeof child != "string") node.appendChild(child);
+    if (typeof child != 'string') node.appendChild(child);
     else node.appendChild(document.createTextNode(child));
   }
   return node;
