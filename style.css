@@ -14,10 +14,12 @@
     display: grid;
     gap: 15px;
     padding: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
 
 .book {
     background-color: gray;
-    padding: 16px;
-    width: repeat(auto-fit, minmax(200px, 1fr)); 
+    padding: 0.875rem 1.5rem;
+    height: 250px;
+    border-radius: 0.75rem;
 }
