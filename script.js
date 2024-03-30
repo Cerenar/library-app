@@ -1,16 +1,28 @@
 const library = [];
 const container = document.querySelector('.container');
-const addBookButton = document.querySelector('button');
+const addBookButton = document.querySelector('.add-book');
+const addBookDialog = document.getElementById('addBookDialog');
+const confirmBtn = document.querySelector('#confirmBtn');
+const bookTitle = document.querySelector('#title');
+const bookAuthor = document.querySelector('#author');
+const bookPageCount = document.querySelector('#page-count');
+const bookReadStatus = document.querySelector('#read-status');
 
 addBookButton.addEventListener('click', () => {
-    addBookToLibrary();
+    addBookDialog.showModal();
 });
+
+confirmBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    addBookToLibrary(bookTitle.value, bookAuthor.value, bookPageCount.value, bookReadStatus.checked);
+    addBookDialog.close();
+})
 
 function Book (title, author, pageCount, readStatus) {
     this.title = title;
     this.author = author;
     this.pageCount = pageCount;
-    this.readStatus = true;
+    this.readStatus = readStatus;
 }
 
 Book.prototype.toggleRead = function (e) {
@@ -18,11 +30,7 @@ Book.prototype.toggleRead = function (e) {
     this.readStatus ? e.target.innerText = 'Read' : e.target.innerText = 'Unread';
 };
 
-function addBookToLibrary() {
-    let title = prompt('title');
-    let author = prompt('author');
-    let pageCount = prompt('pageCount');
-    let readStatus = prompt('read');
+function addBookToLibrary(title, author, pageCount, readStatus) {
     let newBook = new Book(title, author, pageCount, readStatus);
     library.push(newBook);
     addBookToWebpage(library);
@@ -34,10 +42,10 @@ function addBookToWebpage(library) {
         let newBook = document.querySelector('.container').appendChild(
             elt('div',
                 elt('h2', `${library[i].title}`),
-                elt('p', `${library[i].author}`),
-                elt('p', `${library[i].pageCount}`),
+                elt('p', `Author: ${library[i].author}`),
+                elt('p', `Pages: ${library[i].pageCount}`),
                 elt('button'),
-                elt('button', 'Delete me')));
+                elt('button', 'Delete')));
         newBook.classList.add('book');
         newBook.setAttribute('data-id', `${i}`);
         library[i].readStatus ? newBook.lastChild.previousElementSibling.innerText = 'Read' : newBook.lastChild.previousElementSibling.innerText = 'Unread';

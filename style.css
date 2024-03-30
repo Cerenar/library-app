@@ -10,6 +10,11 @@
     font-family: system-ui, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+h1 {
+    text-align: center;
+    padding: 20px 0 10px 0;
+}
+
 .container {
     display: grid;
     gap: 15px;
@@ -18,16 +23,33 @@
 }
 
 .book {
-    background-color: gray;
+    background-color: darkcyan;
     padding: 0.875rem 1.5rem;
     height: 250px;
     border-radius: 0.75rem;
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr 60px 30px;
+    grid-template-rows: 2.4fr 1fr 1fr 60px 30px;
+    color: white;
 }
 
 .book h2 {
+    display: -webkit-box;
     justify-self: center;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    
+    overflow: auto;
+    scrollbar-width: none;  /* Firefox */
+}
+
+.book h2:hover {
+    -webkit-box-orient: horizontal;
+    scrollbar-width: thin;
+}
+
+.book p {
+    font-size: 1.1rem;
+    
 }
 
 button {
@@ -54,4 +76,51 @@ button {
     top: 25px;
     left: 25px;
     font-size: 1.5rem;
+}
+
+#addBookDialog {
+    opacity: 0;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 350px;
+}
+
+#addBookDialog[open] {
+    opacity: 1;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form div{
+    position: relative;
+    top: 60px;
+    margin-bottom: 1.5rem;
+}
+
+form input[type="text"],
+form input[type="search"],
+form input[type="number"] {
+    width: 250px;
+}
+
+form label {
+    font-size: 0.75rem;
+}
+
+form .text-entry label{
+    position: absolute;
+    top: -16px;
+}
+
+form button {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
 }

@@ -8,8 +8,33 @@
     <script src="script.js" defer></script>
 </head>
 <body>
+    <h1>Your Library</h1>
     <div class="container">
-        <button class="add-book">Add book</button>
-    </div> 
+        <button class="add-book">Add a book</button>
+    </div>
+    <dialog id="addBookDialog">
+        <form>
+            <div class="text-entry">
+                <label for="title">Book Title</label>
+                <input type="search" name="title" id="title" required>
+            </div>
+            <div class="text-entry">
+                <label for="author">Author</label>
+                <input type="text" name="author" id="author" required>
+            </div>
+            <div class="text-entry">
+                <label for="page-count">Number of Pages</label>
+                <input type="number" name="page-count" id="page-count" required>
+            </div>
+            <div>
+                <label for="read-status">Have you read this?</label>
+                <input type="checkbox" name="read-status" id="read-status" required>
+            </div>
+            <div>
+                <button id="confirmBtn" value="default">Confirm</button>
+                <button value="cancel" formmethod="dialog" formnovalidate>Cancel</button>
+            </div>
+        </form>
+    </dialog>
 </body>
 </html>
