@@ -23,6 +23,7 @@
     height: 250px;
     border-radius: 0.75rem;
     display: grid;
+    grid-template-rows: 1fr 1fr 1fr 60px 30px;
 }
 
 .book h2 {
@@ -42,6 +43,7 @@ button {
     border-radius: 1.5rem;
     justify-self: center;
     align-self: center;
+    width: clamp(120px, 70%, 200px);
 }
 
 .add-book {

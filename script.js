@@ -10,8 +10,13 @@ function Book (title, author, pageCount, readStatus) {
     this.title = title;
     this.author = author;
     this.pageCount = pageCount;
-    this.readStatus = readStatus;
+    this.readStatus = true;
 }
+
+Book.prototype.toggleRead = function (e) {
+    this.readStatus = !this.readStatus;
+    this.readStatus ? e.target.innerText = 'Read' : e.target.innerText = 'Unread';
+};
 
 function addBookToLibrary() {
     let title = prompt('title');
@@ -31,10 +36,14 @@ function addBookToWebpage(library) {
                 elt('h2', `${library[i].title}`),
                 elt('p', `${library[i].author}`),
                 elt('p', `${library[i].pageCount}`),
-                elt('p', `${library[i].readStatus}`),
+                elt('button'),
                 elt('button', 'Delete me')));
         newBook.classList.add('book');
         newBook.setAttribute('data-id', `${i}`);
+        library[i].readStatus ? newBook.lastChild.previousElementSibling.innerText = 'Read' : newBook.lastChild.previousElementSibling.innerText = 'Unread';
+        newBook.lastChild.previousElementSibling.addEventListener('click', (e) => {
+            library[i].toggleRead(e);
+        })
         newBook.lastChild.addEventListener('click', (e) => {
             deleteBook(e);
         })
